@@ -11,7 +11,7 @@ public class Students implements Serializable{
     public int year; 
 
     public int getID() {
-    return ID;
+        return ID;
     }
 
     public String getName() {
@@ -29,7 +29,6 @@ public class Students implements Serializable{
     public int getYear() {
         return year;
     }
-    
 
     public void addStudent(Connection conn) {            
         String sql = "INSERT INTO student VALUES (?, ?, ?, ?, ?)";
@@ -44,13 +43,11 @@ public class Students implements Serializable{
             pstmt.setInt(5, year);
 
             pstmt.executeUpdate();
-
             System.out.println("student saved to database");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     } 
 
     public void showStudent(Statement stmt) {
@@ -58,7 +55,6 @@ public class Students implements Serializable{
             ResultSet rs = stmt.executeQuery("SELECT * FROM student");
 
             while (rs.next()) {
-
                 System.out.println(
                     rs.getInt("id") + " " +
                     rs.getString("name") + " " +
@@ -70,26 +66,19 @@ public class Students implements Serializable{
 
         } catch (Exception e) {
                 e.printStackTrace();
-            }
-        }
-
-        public static ResultSet getStudents(Connection conn) {
-
-        try {
-
-            String sql = "SELECT * FROM student";
-
-            PreparedStatement pstmt =
-                    conn.prepareStatement(sql);
-
-            return pstmt.executeQuery();
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-            return null;
         }
     }
+
+        public static ResultSet getStudents(Connection conn) {
+            try {
+                String sql = "SELECT * FROM student";
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                return pstmt.executeQuery();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
     
 }
